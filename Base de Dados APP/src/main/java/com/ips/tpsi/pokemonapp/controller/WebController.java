@@ -17,11 +17,11 @@ public class WebController {
     @Autowired
     private WebBc bc;
 
-    @GetMapping("/home")
+    @GetMapping("/home") // @GetMapping("/")
     public ModelAndView getHome() {
-        List<Pokemon> pokemonList = bc.getAllPokemon();
-        ModelAndView mv = new ModelAndView("pokemonList");
-        mv.addObject("pokemonList", pokemonList);
+        ModelAndView mv = new ModelAndView("index");
+        // aceder à business component > acede ao repositorio > obtem dados
+
         return mv;
     }
 
