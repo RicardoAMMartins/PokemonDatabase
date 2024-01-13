@@ -1,57 +1,54 @@
 package com.ips.tpsi.pokemonapp.controller;
 
 import com.ips.tpsi.pokemonapp.bc.WebBc;
-import com.ips.tpsi.pokemonapp.entity.User;
+import com.ips.tpsi.pokemonapp.entity.Pokemon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class WebController {
 
     @Autowired
-    WebBc bc;
+    private WebBc bc;
 
-    public WebController(WebBc bc) {
-        this.bc = bc;
-    }
-
-    @GetMapping("/home") // @GetMapping("/")
+    @GetMapping("/home")
     public ModelAndView getHome() {
-        ModelAndView mv = new ModelAndView("index");
-        // aceder à business component > acede ao repositorio > obtem dados
-
+        List<Pokemon> pokemonList = bc.getAllPokemon();
+        ModelAndView mv = new ModelAndView("pokemonList");
+        mv.addObject("pokemonList", pokemonList);
         return mv;
     }
 
-
-
-    @PostMapping("/login")
-    public ModelAndView login(String uname, String psw) {
-
-        // aceder à business component para validar o login
-        boolean isLoginValid = bc.isLoginValid(uname, psw);
-
-        // uma vez que o login é válido procedemos ao login
-        ModelAndView mv = new ModelAndView("index");
-        if (isLoginValid) {
-            // aceder à business component > acede ao repositorio > obtem dados
-            mv.addObject("loginValid", "O Login é válido.");
-        } else {
-            mv.addObject("loginValid", "O Login é inválido.");
-        }
+    @GetMapping("/select")
+    public ModelAndView getSelectForm() {
+        List<Pokemon> pokemonList = bc.getAllPokemon();
+        ModelAndView mv = new ModelAndView("selectForm");
+        mv.addObject("pokemonList", pokemonList);
+        mv.addObject("selectedPokemon", new Pokemon());
         return mv;
     }
 
-
-    @GetMapping("/username")
-    public ModelAndView getUserByUsername(String username) {
-        User user = bc.getRepositoryUserInfoByUsername(username);
-        ModelAndView mv = new ModelAndView("index");
-        mv.addObject("user", user);
-        return mv;
+    @PostMapping("/add")
+    public ModelAndView addPokemon(@ModelAttribute Pokemon newPokemon) {
+        bc.addPokemon(newPokemon);
+        return new ModelAndView("redirect:/home");
     }
 
+    @PostMapping("/edit")
+    public ModelAndView editPokemon(@ModelAttribute Pokemon editedPokemon) {
+        bc.editPokemon(editedPokemon);
+        return new ModelAndView("redirect:/home");
+    }
+
+    @PostMapping("/delete")
+    public ModelAndView deletePokemon(Integer idPokemon) {
+        bc.deletePokemon(idPokemon);
+        return new ModelAndView("redirect:/home");
+    }
 }

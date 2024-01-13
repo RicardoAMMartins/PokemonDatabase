@@ -1,47 +1,31 @@
 package com.ips.tpsi.pokemonapp.bc;
 
-import com.ips.tpsi.pokemonapp.Repository.UserRepository;
+import com.ips.tpsi.pokemonapp.Repository.PokemonRepository;
+import com.ips.tpsi.pokemonapp.entity.Pokemon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ips.tpsi.pokemonapp.entity.User;
 
 import java.util.List;
-
-// a anotação Service serve para definir serviços, neste caso o nosso BC que é onde está a componente de lógica de negócio
 
 @Service
 public class WebBc {
 
     @Autowired
-    UserRepository repository;
+    private PokemonRepository pokemonRepository;
 
-    public boolean isLoginValid(String name, String password) {
-        if (name != null && password != null) {
-            User user = repository.findUserByUsername(name);
-            if (password.equals(user.getPassword())) {
-                return true;
-            }
-        }
-        return false;
+    public List<Pokemon> getAllPokemon() {
+        return pokemonRepository.findAll();
     }
 
-    public void getRepositoryUserInfo(String username, String pass) {
-        List<User> userList = repository.findAll(); // select * from user;
-
-        // método 1 - construir o objeto
-        User user1 = new User();
-        user1.setUsername(username);
-        user1.setPassword(pass);
-        repository.save(user1);
-
-        // método 2 - construir o objeto c/ o que vem da bd + a alteração
-        User user = repository.findUserByUsername(username);
-        user.setPassword(pass);
-        repository.save(user);
+    public void addPokemon(Pokemon newPokemon) {
+        pokemonRepository.save(newPokemon);
     }
 
-    public User getRepositoryUserInfoByUsername(String username) {
-        return repository.findUserByUsername(username);
+    public void editPokemon(Pokemon editedPokemon) {
+        pokemonRepository.save(editedPokemon);
     }
 
+    public void deletePokemon(Integer idPokemon) {
+        pokemonRepository.deleteById(idPokemon);
+    }
 }
