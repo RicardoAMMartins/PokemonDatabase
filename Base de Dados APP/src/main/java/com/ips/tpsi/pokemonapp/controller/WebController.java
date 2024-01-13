@@ -5,6 +5,7 @@ import com.ips.tpsi.pokemonapp.entity.Pokemon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,11 +27,27 @@ public class WebController {
         return mv;
     }
 
+    @GetMapping("/add-form")
+    public ModelAndView getAddForm() {
+        ModelAndView mv = new ModelAndView("addForm");
+        mv.addObject("newPokemon", new Pokemon());
+        return mv;
+    }
+
     @PostMapping("/add")
     public ModelAndView addPokemon(@ModelAttribute Pokemon newPokemon) {
         bc.addPokemon(newPokemon);
         return new ModelAndView("redirect:/home");
     }
+
+    @GetMapping("/edit-form/{id}")
+    public ModelAndView getEditForm(@PathVariable Integer id) {
+        Pokemon pokemonToEdit = bc.getPokemonById(id);
+        ModelAndView mv = new ModelAndView("editForm");
+        mv.addObject("editedPokemon", pokemonToEdit);
+        return mv;
+    }
+
 
     @PostMapping("/edit")
     public ModelAndView editPokemon(@ModelAttribute Pokemon editedPokemon) {

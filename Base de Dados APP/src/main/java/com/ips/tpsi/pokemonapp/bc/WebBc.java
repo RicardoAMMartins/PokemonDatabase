@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WebBc {
@@ -27,5 +28,10 @@ public class WebBc {
 
     public void deletePokemon(Integer idPokemon) {
         pokemonRepository.deleteById(idPokemon);
+    }
+
+    public Pokemon getPokemonById(Integer id) {
+        Optional<Pokemon> optionalPokemon = pokemonRepository.findById(id);
+        return optionalPokemon.orElse(null);
     }
 }

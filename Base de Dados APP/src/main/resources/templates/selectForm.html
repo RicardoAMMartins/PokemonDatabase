@@ -15,7 +15,11 @@
 <h2>Select Form</h2>
 
 
-<button onclick="showPokemonList()">Show Pokemon List</button>
+<button onclick="showPokemonList()">Show Pokémon List</button>
+<button onclick="location.href='/add-form'">Add Pokemon</button>
+
+
+
 
 
 <table id="pokemonListTable" border="1">
@@ -48,6 +52,8 @@
         <td th:text="${pokemon.speed}"></td>
         <td th:text="${pokemon.generation}"></td>
         <td th:text="${pokemon.legendary}"></td>
+        <td><button th:onclick="'location.href=\'/edit-form/\' + ' + ${pokemon.idPokemon}">Edit</button></td>
+        <td><button th:onclick="'location.href=\'/delete/\' + ' + ${pokemon.idPokemon}">Delete</button></td>
 
 
     </tr>

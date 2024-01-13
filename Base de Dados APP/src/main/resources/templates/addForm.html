@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Pokemon Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Add Pokemon</h2>
+
+<form th:action="@{/add}" method="post" th:object="${newPokemon}" style="display: flex; flex-direction: column; width: 200px;">
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" th:field="*{namePokemon}" required>
+    <label for="total">Total:</label>
+    <input type="text" id="total" name="total" th:field="*{total}" required>
+    <label for="hp">HP:</label>
+    <input type="text" id="hp" name="hp" th:field="*{hp}" required>
+    <label for="attack">Attack:</label>
+    <input type="text" id="attack" name="attack" th:field="*{attack}" required>
+    <label for="defense">Defense:</label>
+    <input type="text" id="defense" name="defense" th:field="*{defense}" required>
+    <label for="superAttack">Super Attack:</label>
+    <input type="text" id="superAttack" name="superAttack" th:field="*{superAttack}" required>
+    <label for="superDefense">Super Defense:</label>
+    <input type="text" id="superDefense" name="superDefense" th:field="*{superDefense}" required>
+    <label for="speed">Speed:</label>
+    <input type="text" id="speed" name="speed" th:field="*{speed}" required>
+    <label for="generation">Generation:</label>
+    <input type="text" id="generation" name="generation" th:field="*{generation}" required>
+    <label for="legendary">Legendary:</label>
+    <input type="text" id="legendary" name="legendary" th:field="*{legendary}" required>
+
+
+
+
+    <button type="submit">Add Pokemon</button>
+</form>
+
+<button onclick="goBack()">Go Back</button>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+</body>
+</html>
