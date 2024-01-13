@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Pokemon</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Pokemon</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<form th:action="@{/pokemon/create}" method="post">
+
+    <div class="container">
+        <label for="name"><b>Name</b></label>
+        <input id="name" type="text" placeholder="Enter Pokemon Name" name="name" required>
+
+        <label for="total"><b>Total</b></label>
+        <input id="total" type="number" placeholder="Enter Total" name="total" required>
+
+        <label for="hp"><b>HP</b></label>
+        <input id="hp" type="number" placeholder="Enter HP" name="hp" required>
+
+        <label for="attack"><b>Attack</b></label>
+        <input id="attack" type="number" placeholder="Enter Attack" name="attack" required>
+
+        <label for="defense"><b>Defense</b></label>
+        <input id="defense" type="number" placeholder="Enter Defense" name="defense" required>
+
+        <label for="superAttack"><b>Super Attack</b></label>
+        <input id="superAttack" type="number" placeholder="Enter Super Attack" name="superAttack" required>
+
+        <label for="superDefense"><b>Super Defense</b></label>
+        <input id="superDefense" type="number" placeholder="Enter Super Defense" name="superDefense" required>
+
+        <label for="speed"><b>Speed</b></label>
+        <input id="speed" type="number" placeholder="Enter Speed" name="speed" required>
+
+        <label for="generation"><b>Generation</b></label>
+        <input id="generation" type="number" placeholder="Enter Generation" name="generation" required>
+
+        <label for="legendary"><b>Legendary</b></label>
+        <input id="legendary" type="text" placeholder="Enter Legendary" name="legendary" required>
+
+        <button type="submit">Create Pokemon</button>
+    </div>
+
+</form>
+
+</body>
+</html>
+
+</body>
+</html>

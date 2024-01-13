@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Form</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #pokemonListTable {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Select Form</h2>
+
+
+<button onclick="showPokemonList()">Show Pokemon List</button>
+
+
+<table id="pokemonListTable" border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Total</th>
+        <th>HP</th>
+        <th>Attack</th>
+        <th>Defense</th>
+        <th>Super Attack</th>
+        <th>Super Defense</th>
+        <th>Speed</th>
+        <th>Generation</th>
+        <th>Legendary</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pokemon : ${pokemonList}">
+        <td th:text="${pokemon.idPokemon}"></td>
+        <td th:text="${pokemon.namePokemon}"></td>
+        <td th:text="${pokemon.total}"></td>
+        <td th:text="${pokemon.hp}"></td>
+        <td th:text="${pokemon.attack}"></td>
+        <td th:text="${pokemon.defense}"></td>
+        <td th:text="${pokemon.superAttack}"></td>
+        <td th:text="${pokemon.superDefense}"></td>
+        <td th:text="${pokemon.speed}"></td>
+        <td th:text="${pokemon.generation}"></td>
+        <td th:text="${pokemon.legendary}"></td>
+
+
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    function showPokemonList() {
+        var pokemonListTable = document.getElementById("pokemonListTable");
+        pokemonListTable.style.display = "block";
+    }
+</script>
+
+</body>
+</html>

@@ -17,14 +17,6 @@ public class WebController {
     @Autowired
     private WebBc bc;
 
-    @GetMapping("/home") // @GetMapping("/")
-    public ModelAndView getHome() {
-        ModelAndView mv = new ModelAndView("index");
-        // aceder à business component > acede ao repositorio > obtem dados
-
-        return mv;
-    }
-
     @GetMapping("/select")
     public ModelAndView getSelectForm() {
         List<Pokemon> pokemonList = bc.getAllPokemon();
