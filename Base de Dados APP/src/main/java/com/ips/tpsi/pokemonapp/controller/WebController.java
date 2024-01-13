@@ -36,9 +36,19 @@ public class WebController {
 
     @PostMapping("/add")
     public ModelAndView addPokemon(@ModelAttribute Pokemon newPokemon) {
-        bc.addPokemon(newPokemon);
-        return new ModelAndView("redirect:/home");
+        try {
+            bc.addPokemon(newPokemon);
+            ModelAndView modelAndView = new ModelAndView("addForm"); // Change this to your actual view name
+            modelAndView.addObject("newPokemon", new Pokemon()); // Add an empty Pokemon object for the next input
+            modelAndView.addObject("addedPokemon", newPokemon); // Add the added Pokemon for display
+            modelAndView.addObject("pokemonList", bc.getAllPokemon()); // Add the complete Pokemon list (if needed)
+            return modelAndView;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("errorPage");
+        }
     }
+
 
     @GetMapping("/edit-form/{id}")
     public ModelAndView getEditForm(@PathVariable Integer id) {
@@ -52,12 +62,12 @@ public class WebController {
     @PostMapping("/edit")
     public ModelAndView editPokemon(@ModelAttribute Pokemon editedPokemon) {
         bc.editPokemon(editedPokemon);
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("redirect:/select");
     }
 
     @PostMapping("/delete")
     public ModelAndView deletePokemon(Integer idPokemon) {
         bc.deletePokemon(idPokemon);
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("redirect:/select");
     }
 }

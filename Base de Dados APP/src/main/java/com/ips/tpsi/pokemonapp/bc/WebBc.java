@@ -19,8 +19,14 @@ public class WebBc {
     }
 
     public void addPokemon(Pokemon newPokemon) {
-        pokemonRepository.save(newPokemon);
+        try {
+            pokemonRepository.save(newPokemon);
+        } catch (Exception e) {
+            e.printStackTrace(); // Log or print the exception for debugging
+            // Rethrow or handle the exception as needed
+        }
     }
+
 
     public void editPokemon(Pokemon editedPokemon) {
         pokemonRepository.save(editedPokemon);

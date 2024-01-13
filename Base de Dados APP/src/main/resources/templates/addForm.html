@@ -40,6 +40,11 @@
 
 <button onclick="goBack()">Go Back</button>
 
+<div th:if="${addedPokemon}">
+    <h3>Added Pokemon Details:</h3>
+    <p>Name: <span th:text="${addedPokemon.namePokemon}"></span></p>
+</div>
+
 <script>
     function goBack() {
         window.history.back();
