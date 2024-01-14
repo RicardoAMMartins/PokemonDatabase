@@ -38,10 +38,10 @@ public class WebController {
     public ModelAndView addPokemon(@ModelAttribute Pokemon newPokemon) {
         try {
             bc.addPokemon(newPokemon);
-            ModelAndView modelAndView = new ModelAndView("addForm"); // Change this to your actual view name
-            modelAndView.addObject("newPokemon", new Pokemon()); // Add an empty Pokemon object for the next input
-            modelAndView.addObject("addedPokemon", newPokemon); // Add the added Pokemon for display
-            modelAndView.addObject("pokemonList", bc.getAllPokemon()); // Add the complete Pokemon list (if needed)
+            ModelAndView modelAndView = new ModelAndView("addForm"); 
+            modelAndView.addObject("newPokemon", new Pokemon()); 
+            modelAndView.addObject("addedPokemon", newPokemon); 
+            modelAndView.addObject("pokemonList", bc.getAllPokemon()); 
             return modelAndView;
         } catch (Exception e) {
             e.printStackTrace();
