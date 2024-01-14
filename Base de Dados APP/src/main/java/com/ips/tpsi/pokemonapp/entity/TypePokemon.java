@@ -24,4 +24,9 @@ public class TypePokemon {
     @Column(name = "name_type")
     private String nameType;
 
+    @Override
+    public String toString() {
+        return nameType; // ou qualquer outra lógica que você desejar para representar o TypePokemon como uma string
+    }
+
 }

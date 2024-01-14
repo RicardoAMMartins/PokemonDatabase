@@ -36,6 +36,8 @@
         <th>Speed</th>
         <th>Generation</th>
         <th>Legendary</th>
+        <th>Type 1</th>
+        <th>Type 2</th>
 
     </tr>
     </thead>
@@ -52,8 +54,11 @@
         <td th:text="${pokemon.speed}"></td>
         <td th:text="${pokemon.generation}"></td>
         <td th:text="${pokemon.legendary}"></td>
+        <td th:text="${pokemon.firstType}"></td>
+        <td th:if="${pokemon.secondType != null}" th:text="${ pokemon.secondType}"></td>
         <td><button th:onclick="'location.href=\'/edit-form/\' + ' + ${pokemon.idPokemon}">Edit</button></td>
-        <td><button th:onclick="'location.href=\'/delete/\' + ' + ${pokemon.idPokemon}">Delete</button></td>
+        <td><button id="deleteButton" th:attr="data-pokemonId=${pokemon.idPokemon}">Delete</button></td>
+
 
 
     </tr>
@@ -66,6 +71,41 @@
         pokemonListTable.style.display = "block";
     }
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var deleteButtons = document.querySelectorAll('#deleteButton');
+
+        deleteButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var pokemonId = button.getAttribute('data-pokemonId');
+                deletePokemon(pokemonId);
+            });
+        });
+    });
+
+    function deletePokemon(pokemonId) {
+        // Make an AJAX request to delete the Pokemon
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/delete/' + pokemonId, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Successfully deleted, update the page
+                updatePage();
+            } else {
+                // Handle error, if any
+                console.error('Error deleting Pokemon:', xhr.statusText);
+            }
+        };
+        xhr.send();
+    }
+
+    function updatePage() {
+        // Reload the current page or update the content dynamically
+        window.location.reload(); // You can also use other methods to update the page content dynamically
+    }
+</script>
+
 
 </body>
 </html>

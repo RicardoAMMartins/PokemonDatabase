@@ -3,6 +3,7 @@ package com.ips.tpsi.pokemonapp.controller;
 import com.ips.tpsi.pokemonapp.bc.WebBc;
 import com.ips.tpsi.pokemonapp.entity.Pokemon;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,7 @@ public class WebController {
 
     @GetMapping("/select")
     public ModelAndView getSelectForm() {
-        List<Pokemon> pokemonList = bc.getAllPokemon();
+        List<Pokemon> pokemonList = bc.getAllPokemonWithTypes();
         ModelAndView mv = new ModelAndView("selectForm");
         mv.addObject("pokemonList", pokemonList);
         mv.addObject("selectedPokemon", new Pokemon());
@@ -41,7 +42,7 @@ public class WebController {
             ModelAndView modelAndView = new ModelAndView("addForm"); 
             modelAndView.addObject("newPokemon", new Pokemon()); 
             modelAndView.addObject("addedPokemon", newPokemon); 
-            modelAndView.addObject("pokemonList", bc.getAllPokemon()); 
+            modelAndView.addObject("pokemonList", bc.getAllPokemonWithTypes());
             return modelAndView;
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,9 +66,10 @@ public class WebController {
         return new ModelAndView("redirect:/select");
     }
 
-    @PostMapping("/delete")
-    public ModelAndView deletePokemon(Integer idPokemon) {
-        bc.deletePokemon(idPokemon);
-        return new ModelAndView("redirect:/select");
+    @PostMapping("/delete/{id}")
+    public ResponseEntity<String> deletePokemon(@PathVariable Integer id) {
+        bc.deletePokemon(id);
+        return ResponseEntity.ok("Pokemon deleted successfully");
     }
+
 }

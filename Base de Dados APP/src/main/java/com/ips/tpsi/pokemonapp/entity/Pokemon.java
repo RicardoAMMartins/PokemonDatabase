@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "pokemon")
 @AllArgsConstructor
@@ -49,5 +52,34 @@ public class Pokemon {
     @Column(name = "legendary")
     private String legendary;
 
+    @Transient
+    private Boolean isActive = true;
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "first_type_id", referencedColumnName = "id_type", foreignKey = @ForeignKey(name = "fk_pokemon_first_type"))
+    private TypePokemon firstType;
+
+    @ManyToOne
+    @JoinColumn(name = "second_type_id", referencedColumnName = "id_type", foreignKey = @ForeignKey(name = "fk_pokemon_second_type"))
+    private TypePokemon secondType;
+
+    // ... outros métodos ...
+
+    // Método de conversão DTO para evitar ciclos infinitos durante a serialização
+    public PokemonDTO toDTO() {
+        PokemonDTO dto = new PokemonDTO();
+        // Copie os campos relevantes para o DTO
+        dto.setIdPokemon(this.idPokemon);
+        // ... outros campos ...
+        return dto;
+    }
 }
 
