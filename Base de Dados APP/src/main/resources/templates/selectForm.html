@@ -14,11 +14,8 @@
 
 <h2>Select Form</h2>
 
-
 <button onclick="showPokemonList()">Show Pokémon List</button>
 <button onclick="location.href='/add-form'">Add Pokemon</button>
-
-
 
 
 
@@ -38,11 +35,10 @@
         <th>Legendary</th>
         <th>Type 1</th>
         <th>Type 2</th>
-
     </tr>
     </thead>
     <tbody>
-    <tr th:each="pokemon : ${pokemonList}">
+    <tr th:each="pokemon : ${pokemonList}" th:if="${pokemon.isActive}">
         <td th:text="${pokemon.idPokemon}"></td>
         <td th:text="${pokemon.namePokemon}"></td>
         <td th:text="${pokemon.total}"></td>
@@ -54,13 +50,10 @@
         <td th:text="${pokemon.speed}"></td>
         <td th:text="${pokemon.generation}"></td>
         <td th:text="${pokemon.legendary}"></td>
-        <td th:text="${pokemon.firstType}"></td>
-        <td th:if="${pokemon.secondType != null}" th:text="${ pokemon.secondType}"></td>
+        <td th:text="${pokemon.typeLevels != null && pokemon.typeLevels.size() > 0 ? pokemon.typeLevels[0].typePokemon.nameType : ''}"></td>
+        <td th:text="${pokemon.typeLevels != null && pokemon.typeLevels.size() > 1 && pokemon.typeLevels[1].typePokemon != null ? pokemon.typeLevels[1].typePokemon.nameType : ''}"></td>
         <td><button th:onclick="'location.href=\'/edit-form/\' + ' + ${pokemon.idPokemon}">Edit</button></td>
         <td><button id="deleteButton" th:attr="data-pokemonId=${pokemon.idPokemon}">Delete</button></td>
-
-
-
     </tr>
     </tbody>
 </table>
@@ -84,7 +77,6 @@
     });
 
     function deletePokemon(pokemonId) {
-        // Make an AJAX request to delete the Pokemon
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '/delete/' + pokemonId, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
@@ -105,7 +97,6 @@
         window.location.reload(); // You can also use other methods to update the page content dynamically
     }
 </script>
-
 
 </body>
 </html>

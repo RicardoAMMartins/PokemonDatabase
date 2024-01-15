@@ -72,6 +72,7 @@
 
         public void editPokemon(Pokemon editedPokemon) {
             pokemonRepository.save(editedPokemon);
+
         }
 
         public void deletePokemon(Integer idPokemon) {
@@ -80,8 +81,12 @@
             pokemonRepository.save(pokemonToDelete);
         }
 
+
+
         public Pokemon getPokemonById(Integer id) {
             Optional<Pokemon> optionalPokemon = pokemonRepository.findById(id);
             return optionalPokemon.orElse(null);
         }
+
+
     }

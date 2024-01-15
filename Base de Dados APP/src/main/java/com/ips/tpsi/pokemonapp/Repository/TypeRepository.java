@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface TypeRepository extends JpaRepository<TypePokemon, Integer> {}
+public interface TypeRepository extends JpaRepository<TypePokemon, Integer> {
+
+}

@@ -59,17 +59,56 @@ public class Pokemon {
         return isActive;
     }
 
+    @OneToMany(mappedBy = "pokemon")
+    private List<PokemonTypeLvl> typeLevels;
+
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "first_type_id", referencedColumnName = "id_type", foreignKey = @ForeignKey(name = "fk_pokemon_first_type"))
+    @Transient
     private TypePokemon firstType;
 
-    @ManyToOne
-    @JoinColumn(name = "second_type_id", referencedColumnName = "id_type", foreignKey = @ForeignKey(name = "fk_pokemon_second_type"))
+    @Transient
     private TypePokemon secondType;
+
+    public TypePokemon getFirstType() {
+        return firstType;
+    }
+
+    public TypePokemon getSecondType() {
+        return secondType;
+    }
+
+    public void setFirstType(TypePokemon firstType) {
+        if (this.typeLevels == null) {
+            this.typeLevels = new ArrayList<>();
+        }
+
+        if (this.typeLevels.size() > 0) {
+            this.typeLevels.get(0).setTypePokemon(firstType);
+        } else {
+            PokemonTypeLvl typeLvl = new PokemonTypeLvl();
+            typeLvl.setPokemon(this);
+            typeLvl.setTypePokemon(firstType);
+            this.typeLevels.add(typeLvl);
+        }
+    }
+
+    public void setSecondType(TypePokemon secondType) {
+        if (this.typeLevels == null) {
+            this.typeLevels = new ArrayList<>();
+        }
+
+        if (this.typeLevels.size() > 1) {
+            this.typeLevels.get(1).setTypePokemon(secondType);
+        } else {
+            PokemonTypeLvl typeLvl = new PokemonTypeLvl();
+            typeLvl.setPokemon(this);
+            typeLvl.setTypePokemon(secondType);
+            this.typeLevels.add(typeLvl);
+        }
+    }
 
     // ... outros métodos ...
 

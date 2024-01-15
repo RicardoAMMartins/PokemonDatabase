@@ -1,12 +1,6 @@
 package com.ips.tpsi.pokemonapp.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,17 +12,23 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+
+
 public class PokemonTypeLvl {
 
-    @Id
-    @Column(name = "pokemon_type_level")
-    private Integer pokemonTypeLevel;
+    @EmbeddedId
+    private PokemonTypeLvlKey id;
 
     @ManyToOne
-    @JoinColumn(name = "pokemon_id", referencedColumnName = "id_pokemon", nullable = false, foreignKey = @ForeignKey(name = "fk_pokemon_type_level_pokemon"))
+    @MapsId("pokemonId")
+    @JoinColumn(name = "pokemon_id")
     private Pokemon pokemon;
 
     @ManyToOne
-    @JoinColumn(name = "type_id", referencedColumnName = "id_type", nullable = false, foreignKey = @ForeignKey(name = "fk_pokemon_type_level_type"))
+    @MapsId("typeId")
+    @JoinColumn(name = "type_id")
     private TypePokemon typePokemon;
+
+    @Column(name = "pokemon_type_level")
+    private Integer pokemonTypeLevel;
 }

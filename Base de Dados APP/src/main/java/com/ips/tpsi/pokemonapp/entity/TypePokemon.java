@@ -1,13 +1,12 @@
 package com.ips.tpsi.pokemonapp.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "type_pokemon")
@@ -24,9 +23,8 @@ public class TypePokemon {
     @Column(name = "name_type")
     private String nameType;
 
-    @Override
-    public String toString() {
-        return nameType; // ou qualquer outra lógica que você desejar para representar o TypePokemon como uma string
-    }
+    @OneToMany(mappedBy = "typePokemon")
+    private List<PokemonTypeLvl> typeLevels;
+
 
 }
