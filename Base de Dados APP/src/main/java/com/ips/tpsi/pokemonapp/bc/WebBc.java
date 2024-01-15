@@ -69,13 +69,34 @@ public class WebBc {
 
             pokemonTypeLvlRepository.save(pokemonTypeLvl1);
             pokemonTypeLvlRepository.save(pokemonTypeLvl2);
+
+            newPokemon.setIsActive(true);
+            pokemonRepository.save(newPokemon);
+
         } catch (Exception e) {
             e.printStackTrace(); 
         }
     }
 
-    public void editPokemon(Pokemon editedPokemon) {
-        pokemonRepository.save(editedPokemon);
+    public void editPokemon(Pokemon editedPokemon, Integer type1Id, Integer type2Id) {
+        try {
+            pokemonRepository.save(editedPokemon);
+
+            TypePokemon type1 = typeRepository.findById(type1Id).orElse(null);
+            TypePokemon type2 = typeRepository.findById(type2Id).orElse(null);
+
+            PokemonTypeLvl pokemonTypeLvl1 = new PokemonTypeLvl(new PokemonTypeLvlKey(editedPokemon.getIdPokemon(), type1Id), editedPokemon, type1, 1);
+            PokemonTypeLvl pokemonTypeLvl2 = new PokemonTypeLvl(new PokemonTypeLvlKey(editedPokemon.getIdPokemon(), type2Id), editedPokemon, type2, 2);
+
+            pokemonTypeLvlRepository.save(pokemonTypeLvl1);
+            pokemonTypeLvlRepository.save(pokemonTypeLvl2);
+
+            editedPokemon.setIsActive(true);
+            pokemonRepository.save(editedPokemon);
+
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }
     }
 
     public void deletePokemon(Integer idPokemon) {

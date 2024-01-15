@@ -98,6 +98,15 @@
           th:selected="${type.idType == newPokemon.secondType?.idType}"
         ></option>
       </select>
+
+      <input
+        type="hidden"
+        id="isActive"
+        name="isActive"
+        th:field="*{isActive}"
+        th:value="true"
+      />
+
       <button type="submit">Add Pokemon</button>
     </form>
 

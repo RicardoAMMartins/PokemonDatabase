@@ -51,7 +51,7 @@ public class Pokemon {
     @Column(name = "legendary")
     private String legendary;
 
-    @Column(name = "is_active", columnDefinition = "tinyint(1) default 1")
+    @Column(name = "is_active")
     private Boolean isActive;
 
     @OneToMany(mappedBy = "pokemon")

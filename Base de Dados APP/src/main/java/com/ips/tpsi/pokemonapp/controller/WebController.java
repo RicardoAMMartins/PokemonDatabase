@@ -62,16 +62,33 @@ public class WebController {
 
     @GetMapping("/edit-form/{id}")
     public ModelAndView getEditForm(@PathVariable Integer id) {
+        List<TypePokemon> allTypes = bc.getAllTypes();
         Pokemon pokemonToEdit = bc.getPokemonById(id);
         ModelAndView mv = new ModelAndView("editForm");
         mv.addObject("editedPokemon", pokemonToEdit);
+        mv.addObject("allTypes", allTypes);
         return mv;
     }
 
     @PostMapping("/edit")
-    public ModelAndView editPokemon(@ModelAttribute Pokemon editedPokemon) {
-        bc.editPokemon(editedPokemon);
-        return new ModelAndView("redirect:/select");
+    public ModelAndView editPokemon(@ModelAttribute Pokemon editedPokemon,
+                                    @RequestParam("type1") Integer type1Id,
+                                    @RequestParam("type2") Integer type2Id) 
+    {
+        try {
+            System.out.println("Type 1 ID: " + type1Id);
+            System.out.println("Type 2 ID: " + type2Id);
+            bc.editPokemon(editedPokemon, type1Id, type2Id);
+
+            ModelAndView modelAndView = new ModelAndView("editForm"); 
+            modelAndView.addObject("editedPokemon", new Pokemon()); 
+            modelAndView.addObject("newEditedPokemon", editedPokemon); 
+            modelAndView.addObject("pokemonList", bc.getAllPokemonWithTypes());
+            return modelAndView;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("errorPage");
+        }
     }
 
     @PostMapping("/delete/{id}")
