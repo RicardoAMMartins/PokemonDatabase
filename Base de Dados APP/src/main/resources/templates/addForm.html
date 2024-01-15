@@ -77,6 +77,27 @@
         required
       />
 
+      <!-- Type 1 dropdown -->
+      <label for="type1">Pokemon Type 1:</label>
+      <select id="type1" name="type1">
+        <option
+          th:each="type: ${allTypes}"
+          th:value="${type.idType}"
+          th:text="${type.nameType}"
+          th:selected="${type.idType == newPokemon.firstType?.idType}"
+        ></option>
+      </select>
+
+      <!-- Type 2 dropdown -->
+      <label for="type2">Pokemon Type 2:</label>
+      <select id="type2" name="type2">
+        <option
+          th:each="type: ${allTypes}"
+          th:value="${type.idType}"
+          th:text="${type.nameType}"
+          th:selected="${type.idType == newPokemon.secondType?.idType}"
+        ></option>
+      </select>
       <button type="submit">Add Pokemon</button>
     </form>
 

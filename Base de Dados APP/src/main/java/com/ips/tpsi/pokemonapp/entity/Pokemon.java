@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,12 +51,11 @@ public class Pokemon {
     @Column(name = "legendary")
     private String legendary;
 
-    @Column(name = "is_active")
+    @Column(name = "is_active", columnDefinition = "tinyint(1) default 1")
     private Boolean isActive;
 
     @OneToMany(mappedBy = "pokemon")
     private List<PokemonTypeLvl> typeLevels;
-
 
     @Transient
     private TypePokemon firstType;
@@ -85,7 +83,6 @@ public class Pokemon {
         if (this.typeLevels == null) {
             this.typeLevels = new ArrayList<>();
         }
-
         if (this.typeLevels.size() > 1) {
             this.typeLevels.get(1).setTypePokemon(secondType);
         } else {
@@ -96,14 +93,9 @@ public class Pokemon {
         }
     }
 
-    // ... outros métodos ...
-
-    // Método de conversão DTO para evitar ciclos infinitos durante a serialização
     public PokemonDTO toDTO() {
         PokemonDTO dto = new PokemonDTO();
-        // Copie os campos relevantes para o DTO
         dto.setIdPokemon(this.idPokemon);
-        // ... outros campos ...
         return dto;
     }
 }

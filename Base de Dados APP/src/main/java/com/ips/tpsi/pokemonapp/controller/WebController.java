@@ -2,12 +2,15 @@ package com.ips.tpsi.pokemonapp.controller;
 
 import com.ips.tpsi.pokemonapp.bc.WebBc;
 import com.ips.tpsi.pokemonapp.entity.Pokemon;
+import com.ips.tpsi.pokemonapp.entity.TypePokemon;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,15 +33,22 @@ public class WebController {
 
     @GetMapping("/add-form")
     public ModelAndView getAddForm() {
+        List<TypePokemon> allTypes = bc.getAllTypes();
         ModelAndView mv = new ModelAndView("addForm");
         mv.addObject("newPokemon", new Pokemon());
+        mv.addObject("allTypes", allTypes);
         return mv;
     }
 
     @PostMapping("/add")
-    public ModelAndView addPokemon(@ModelAttribute Pokemon newPokemon) {
+    public ModelAndView addPokemon(@ModelAttribute Pokemon newPokemon,
+                                @RequestParam("type1") Integer type1Id,
+                                @RequestParam("type2") Integer type2Id) {
         try {
-            bc.addPokemon(newPokemon);
+            System.out.println("Type 1 ID: " + type1Id);
+            System.out.println("Type 2 ID: " + type2Id);
+    
+            bc.addPokemon(newPokemon, type1Id, type2Id);
             ModelAndView modelAndView = new ModelAndView("addForm"); 
             modelAndView.addObject("newPokemon", new Pokemon()); 
             modelAndView.addObject("addedPokemon", newPokemon); 
@@ -50,7 +60,6 @@ public class WebController {
         }
     }
 
-
     @GetMapping("/edit-form/{id}")
     public ModelAndView getEditForm(@PathVariable Integer id) {
         Pokemon pokemonToEdit = bc.getPokemonById(id);
@@ -58,7 +67,6 @@ public class WebController {
         mv.addObject("editedPokemon", pokemonToEdit);
         return mv;
     }
-
 
     @PostMapping("/edit")
     public ModelAndView editPokemon(@ModelAttribute Pokemon editedPokemon) {
@@ -71,7 +79,4 @@ public class WebController {
         bc.deletePokemon(id);
         return "redirect:/select";
     }
-
-
-
 }

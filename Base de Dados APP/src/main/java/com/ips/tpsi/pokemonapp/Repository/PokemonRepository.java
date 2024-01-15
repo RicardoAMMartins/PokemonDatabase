@@ -16,7 +16,4 @@ import java.util.Optional;
 
 @Repository
 public interface PokemonRepository extends JpaRepository<Pokemon, Integer> {
-
-    //Pokemon PokemonfindByName(String name);
-
 }
