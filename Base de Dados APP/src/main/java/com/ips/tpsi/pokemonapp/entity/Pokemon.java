@@ -66,6 +66,7 @@ public class Pokemon {
     private TypePokemon secondType;
 
 
+
     public void setFirstType(TypePokemon firstType) {
         if (this.typeLevels == null) {
             this.typeLevels = new ArrayList<>();
