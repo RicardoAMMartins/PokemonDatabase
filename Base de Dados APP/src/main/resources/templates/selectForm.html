@@ -1,76 +1,89 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Select Form</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <style>
-        #pokemonListTable {
-            display: none;
-        }
+      #pokemonListTable {
+        display: none;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <h2>Select Form</h2>
 
-<h2>Select Form</h2>
+    <button onclick="showPokemonList()">Show Pokémon List</button>
+    <button onclick="location.href='/add-form'">Add Pokemon</button>
 
-<button onclick="showPokemonList()">Show Pokémon List</button>
-<button onclick="location.href='/add-form'">Add Pokemon</button>
-
-
-
-<table id="pokemonListTable" border="1">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Total</th>
-        <th>HP</th>
-        <th>Attack</th>
-        <th>Defense</th>
-        <th>Super Attack</th>
-        <th>Super Defense</th>
-        <th>Speed</th>
-        <th>Generation</th>
-        <th>Legendary</th>
-        <th>Type 1</th>
-        <th>Type 2</th>
-        <th></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="pokemon : ${pokemonList}" th:if="${pokemon.isActive}">
-        <td th:text="${pokemon.idPokemon}"></td>
-        <td th:text="${pokemon.namePokemon}"></td>
-        <td th:text="${pokemon.total}"></td>
-        <td th:text="${pokemon.hp}"></td>
-        <td th:text="${pokemon.attack}"></td>
-        <td th:text="${pokemon.defense}"></td>
-        <td th:text="${pokemon.superAttack}"></td>
-        <td th:text="${pokemon.superDefense}"></td>
-        <td th:text="${pokemon.speed}"></td>
-        <td th:text="${pokemon.generation}"></td>
-        <td th:text="${pokemon.legendary}"></td>
-        <td th:text="${pokemon.typeLevels != null && pokemon.typeLevels.size() > 0 ? pokemon.typeLevels[0].typePokemon.nameType : ''}"></td>
-        <td th:text="${pokemon.typeLevels != null && pokemon.typeLevels.size() > 1 && pokemon.typeLevels[1].typePokemon != null ? pokemon.typeLevels[1].typePokemon.nameType : ''}"></td>
-        <td><button th:onclick="'location.href=\'/edit-form/\' + ' + ${pokemon.idPokemon}">Edit</button></td>
-        <td><form th:action="@{/delete/{id}(id=${pokemon.idPokemon})}" method="post">
-            <button type="submit"  onclick="return confirm('Do you want do delete this Pokemon?')">
-                Delete
+    <table id="pokemonListTable" border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Total</th>
+          <th>HP</th>
+          <th>Attack</th>
+          <th>Defense</th>
+          <th>Super Attack</th>
+          <th>Super Defense</th>
+          <th>Speed</th>
+          <th>Generation</th>
+          <th>Legendary</th>
+          <th>Type 1</th>
+          <th>Type 2</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="pokemon : ${pokemonList}" th:if="${pokemon.isActive}">
+          <td th:text="${pokemon.idPokemon}"></td>
+          <td th:text="${pokemon.namePokemon}"></td>
+          <td th:text="${pokemon.total}"></td>
+          <td th:text="${pokemon.hp}"></td>
+          <td th:text="${pokemon.attack}"></td>
+          <td th:text="${pokemon.defense}"></td>
+          <td th:text="${pokemon.superAttack}"></td>
+          <td th:text="${pokemon.superDefense}"></td>
+          <td th:text="${pokemon.speed}"></td>
+          <td th:text="${pokemon.generation}"></td>
+          <td th:text="${pokemon.legendary}"></td>
+          <td
+            th:text="${pokemon.typeLevels != null && pokemon.typeLevels.size() > 0 ? pokemon.typeLevels[0].typePokemon.nameType : ''}"
+          ></td>
+          <td
+            th:text="${pokemon.typeLevels != null && pokemon.typeLevels.size() > 1 && pokemon.typeLevels[1].typePokemon != null ? pokemon.typeLevels[1].typePokemon.nameType : ''}"
+          ></td>
+          <td>
+            <button
+              th:onclick="'location.href=\'/edit-form/\' + ' + ${pokemon.idPokemon}"
+            >
+              Edit
             </button>
-        </form></td>
-    </tr>
-    </tbody>
-</table>
+          </td>
+          <td>
+            <form
+              th:action="@{/delete/{id}(id=${pokemon.idPokemon})}"
+              method="post"
+            >
+              <button
+                type="submit"
+                onclick="return confirm('Do you want do delete this Pokemon?')"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-<script>
-    function showPokemonList() {
+    <script>
+      function showPokemonList() {
         var pokemonListTable = document.getElementById("pokemonListTable");
         pokemonListTable.style.display = "block";
-    }
-</script>
-
-
-</body>
+      }
+    </script>
+  </body>
 </html>

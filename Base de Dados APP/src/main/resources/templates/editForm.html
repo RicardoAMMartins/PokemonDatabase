@@ -1,51 +1,117 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>Edit Pokemon Form</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edit Pokemon Form</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h2>Edit Pokemon</h2>
 
-<h2>Edit Pokemon</h2>
+    <form
+      th:action="@{/edit}"
+      method="post"
+      th:object="${editedPokemon}"
+      style="display: flex; flex-direction: column; width: 200px"
+    >
+      <input type="hidden" th:field="*{idPokemon}" />
 
-<form th:action="@{/edit}" method="post" th:object="${editedPokemon}" style="display: flex; flex-direction: column; width: 200px;">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        th:field="*{namePokemon}"
+        required
+      />
+      <label for="total">Total:</label>
+      <input type="text" id="total" name="total" th:field="*{total}" required />
+      <label for="hp">HP:</label>
+      <input type="text" id="hp" name="hp" th:field="*{hp}" required />
+      <label for="attack">Attack:</label>
+      <input
+        type="text"
+        id="attack"
+        name="attack"
+        th:field="*{attack}"
+        required
+      />
+      <label for="defense">Defense:</label>
+      <input
+        type="text"
+        id="defense"
+        name="defense"
+        th:field="*{defense}"
+        required
+      />
+      <label for="superAttack">Super Attack:</label>
+      <input
+        type="text"
+        id="superAttack"
+        name="superAttack"
+        th:field="*{superAttack}"
+        required
+      />
+      <label for="superDefense">Super Defense:</label>
+      <input
+        type="text"
+        id="superDefense"
+        name="superDefense"
+        th:field="*{superDefense}"
+        required
+      />
+      <label for="speed">Speed:</label>
+      <input type="text" id="speed" name="speed" th:field="*{speed}" required />
+      <label for="generation">Generation:</label>
+      <input
+        type="text"
+        id="generation"
+        name="generation"
+        th:field="*{generation}"
+        required
+      />
+      <label for="legendary">Legendary:</label>
+      <input
+        type="text"
+        id="legendary"
+        name="legendary"
+        th:field="*{legendary}"
+        required
+      />
 
-  <input type="hidden" th:field="*{idPokemon}">
+      <!-- Type 1 dropdown -->
+      <label for="type1">Pokemon Type 1:</label>
+      <select id="type1" name="type1">
+        <option
+          th:each="type: ${allTypes}"
+          th:value="${type.idType}"
+          th:text="${type.nameType}"
+          th:selected="${type.idType == editedPokemon.firstType?.idType}"
+        ></option>
+      </select>
 
-  <label for="name">Name:</label>
-  <input type="text" id="name" name="name" th:field="*{namePokemon}" required>
-  <label for="total">Total:</label>
-  <input type="text" id="total" name="total" th:field="*{total}" required>
-  <label for="hp">HP:</label>
-  <input type="text" id="hp" name="hp" th:field="*{hp}" required>
-  <label for="attack">Attack:</label>
-  <input type="text" id="attack" name="attack" th:field="*{attack}" required>
-  <label for="defense">Defense:</label>
-  <input type="text" id="defense" name="defense" th:field="*{defense}" required>
-  <label for="superAttack">Super Attack:</label>
-  <input type="text" id="superAttack" name="superAttack" th:field="*{superAttack}" required>
-  <label for="superDefense">Super Defense:</label>
-  <input type="text" id="superDefense" name="superDefense" th:field="*{superDefense}" required>
-  <label for="speed">Speed:</label>
-  <input type="text" id="speed" name="speed" th:field="*{speed}" required>
-  <label for="generation">Generation:</label>
-  <input type="text" id="generation" name="generation" th:field="*{generation}" required>
-  <label for="legendary">Legendary:</label>
-  <input type="text" id="legendary" name="legendary" th:field="*{legendary}" required>
+      <!-- Type 2 dropdown -->
+      <label for="type2">Pokemon Type 2:</label>
+      <select id="type2" name="type2">
+        <option
+          th:each="type: ${allTypes}"
+          th:value="${type.idType}"
+          th:text="${type.nameType}"
+          th:selected="${type.idType == editedPokemon.secondType?.idType}"
+        ></option>
+      </select>
 
+      <input type="hidden" th:field="*{isActive}" />
 
+      <button type="submit">Update Pokemon</button>
+    </form>
 
-  <button type="submit">Update Pokemon</button>
-</form>
+    <button onclick="location.href='/select'">Home</button>
 
-<button onclick="goBack()">Go Back</button>
-
-<script>
-  function goBack() {
-    window.history.back();
-  }
-</script>
-
-</body>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </body>
 </html>
