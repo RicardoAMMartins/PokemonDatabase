@@ -80,24 +80,38 @@ public class WebBc {
 
     public void editPokemon(Pokemon editedPokemon, Integer type1Id, Integer type2Id) {
         try {
-            pokemonRepository.save(editedPokemon);
+            PokemonTypeLvlKey key1 = new PokemonTypeLvlKey(editedPokemon.getIdPokemon(), type1Id);
+            PokemonTypeLvlKey key2 = new PokemonTypeLvlKey(editedPokemon.getIdPokemon(), type2Id);
 
-            TypePokemon type1 = typeRepository.findById(type1Id).orElse(null);
-            TypePokemon type2 = typeRepository.findById(type2Id).orElse(null);
+            Optional<PokemonTypeLvl> existingPokemonTypeLvl1 = pokemonTypeLvlRepository.findById(key1);
+            Optional<PokemonTypeLvl> existingPokemonTypeLvl2 = pokemonTypeLvlRepository.findById(key2);
 
-            PokemonTypeLvl pokemonTypeLvl1 = new PokemonTypeLvl(new PokemonTypeLvlKey(editedPokemon.getIdPokemon(), type1Id), editedPokemon, type1, 1);
-            PokemonTypeLvl pokemonTypeLvl2 = new PokemonTypeLvl(new PokemonTypeLvlKey(editedPokemon.getIdPokemon(), type2Id), editedPokemon, type2, 2);
+            if (existingPokemonTypeLvl1.isPresent()) {
+                PokemonTypeLvl pokemonTypeLvl1 = existingPokemonTypeLvl1.get();
+                pokemonTypeLvl1.setTypePokemon(typeRepository.findById(type1Id).orElse(null));
+                pokemonTypeLvlRepository.save(pokemonTypeLvl1);
+            } else {
+                PokemonTypeLvl pokemonTypeLvl1 = new PokemonTypeLvl(key1, editedPokemon, typeRepository.findById(type1Id).orElse(null), 1);
+                pokemonTypeLvlRepository.save(pokemonTypeLvl1);
+            }
 
-            pokemonTypeLvlRepository.save(pokemonTypeLvl1);
-            pokemonTypeLvlRepository.save(pokemonTypeLvl2);
+            if (existingPokemonTypeLvl2.isPresent()) {
+                PokemonTypeLvl pokemonTypeLvl2 = existingPokemonTypeLvl2.get();
+                pokemonTypeLvl2.setTypePokemon(typeRepository.findById(type2Id).orElse(null));
+                pokemonTypeLvlRepository.save(pokemonTypeLvl2);
+            } else {
+                PokemonTypeLvl pokemonTypeLvl2 = new PokemonTypeLvl(key2, editedPokemon, typeRepository.findById(type2Id).orElse(null), 2);
+                pokemonTypeLvlRepository.save(pokemonTypeLvl2);
+            }
 
             editedPokemon.setIsActive(true);
             pokemonRepository.save(editedPokemon);
-
         } catch (Exception e) {
             e.printStackTrace(); 
         }
     }
+    
+    
 
     public void deletePokemon(Integer idPokemon) {
         Pokemon pokemonToDelete = getPokemonById(idPokemon);

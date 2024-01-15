@@ -54,7 +54,7 @@ public class Pokemon {
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @OneToMany(mappedBy = "pokemon")
+    @OneToMany(mappedBy = "pokemon", cascade = CascadeType.ALL)
     private List<PokemonTypeLvl> typeLevels;
 
     @Transient
