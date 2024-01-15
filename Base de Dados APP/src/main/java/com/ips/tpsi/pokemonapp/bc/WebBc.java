@@ -10,10 +10,13 @@
     import org.springframework.stereotype.Service;
     import com.ips.tpsi.pokemonapp.Repository.TypeRepository;
     import com.ips.tpsi.pokemonapp.Repository.PokemonTypeLvlRepository;
-
+    import java.util.*;
+    import java.util.stream.Collectors;
     import java.util.List;
+    import java.util.NoSuchElementException;
     import java.util.Optional;
     import java.util.stream.Collectors;
+
 
     @Service
     public class WebBc {
@@ -34,6 +37,7 @@
             pokemonList = pokemonList.stream()
                     .filter(Pokemon::getIsActive)
                     .collect(Collectors.toList());
+
 
             for (Pokemon pokemon : pokemonList) {
                 List<PokemonTypeLvl> typeLevels = pokemonTypeLvlRepository.findByPokemon(pokemon);
@@ -80,6 +84,7 @@
             pokemonToDelete.setIsActive(false);
             pokemonRepository.save(pokemonToDelete);
         }
+
 
 
 

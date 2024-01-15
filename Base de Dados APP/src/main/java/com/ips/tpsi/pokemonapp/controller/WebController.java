@@ -67,9 +67,9 @@ public class WebController {
     }
 
     @PostMapping("/delete/{id}")
-    public ResponseEntity<String> deletePokemon(@PathVariable Integer id) {
+    public String deletePokemon(@PathVariable Integer id) {
         bc.deletePokemon(id);
-        return ResponseEntity.ok("Pokemon hidden successfully");
+        return "redirect:/select";
     }
 
 

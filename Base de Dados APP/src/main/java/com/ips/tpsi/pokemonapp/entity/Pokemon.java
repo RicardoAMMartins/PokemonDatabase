@@ -52,19 +52,12 @@ public class Pokemon {
     @Column(name = "legendary")
     private String legendary;
 
-    @Transient
-    private Boolean isActive = true;
-
-    public Boolean getIsActive() {
-        return isActive;
-    }
+    @Column(name = "is_active")
+    private Boolean isActive;
 
     @OneToMany(mappedBy = "pokemon")
     private List<PokemonTypeLvl> typeLevels;
 
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
-    }
 
     @Transient
     private TypePokemon firstType;
@@ -72,13 +65,6 @@ public class Pokemon {
     @Transient
     private TypePokemon secondType;
 
-    public TypePokemon getFirstType() {
-        return firstType;
-    }
-
-    public TypePokemon getSecondType() {
-        return secondType;
-    }
 
     public void setFirstType(TypePokemon firstType) {
         if (this.typeLevels == null) {
