@@ -8,8 +8,8 @@
 <body>
 <h2>Deleted Pokemons</h2>
 
-<button class="show-list-btn" onclick="showDeletedPokemonList()">Show Deleted Pokémon List</button>
 <button class="home-btn" onclick="location.href='/select'">Home</button>
+<!--<button class="show-list-btn" onclick="showDeletedPokemonList()">Show Deleted Pokémon List</button>-->
 <img src="https://1000logos.net/wp-content/uploads/2017/05/Pokemon-Logo.png" alt="Pokemon Logo" class="pokemon-logo">
 
 
@@ -49,7 +49,7 @@
         <td th:text="${pokemon.typeLevels != null && pokemon.typeLevels.size() > 1 && pokemon.typeLevels[1].typePokemon != null ? pokemon.typeLevels[1].typePokemon.nameType : ''}"></td>
         <td>
             <form th:action="@{'/reactivate/' + ${pokemon.idPokemon}}" method="get">
-                <button class="reactivate-btn" type="submit">Reactivate</button>
+                <button class="reactivate-btn" type="submit">Undelete</button>
             </form>
         </td>
     </tr>

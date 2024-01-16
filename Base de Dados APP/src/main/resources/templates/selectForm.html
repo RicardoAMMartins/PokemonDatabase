@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
-  <title>Select Form</title>
+  <title>Home</title>
   <link rel="stylesheet" href="selectForm.css" />
   <style>
     #pokemonListTable {
@@ -11,7 +11,7 @@
   </style>
 </head>
 <body>
-<h2>Select Form</h2>
+<h2>Home</h2>
 
 <img src="https://1000logos.net/wp-content/uploads/2017/05/Pokemon-Logo.png" alt="Pokemon Logo" class="pokemon-logo">
 
@@ -87,7 +87,7 @@
         tr = table.getElementsByTagName("tr");
 
         for (i = 0; i < tr.length; i++) {
-          td = tr[i].getElementsByTagName("td")[1]; // Change 1 to the column index of the Pokemon name
+          td = tr[i].getElementsByTagName("td")[1];
           if (td) {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {

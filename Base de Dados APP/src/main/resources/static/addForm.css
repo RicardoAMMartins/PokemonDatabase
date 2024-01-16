@@ -1,11 +1,11 @@
 body {
     font-family: 'Arial', sans-serif;
     margin: 20px;
-    background-color: #f0f0f0; /* Light gray background color */
+    background-color: #f0f0f0;
 }
 
 h2 {
-    color: #333; /* Dark green color */
+    color: #333;
 }
 
 form {
@@ -44,7 +44,7 @@ button {
 }
 
 button:hover {
-    background-color: #45a049; /* Dark green color on hover */
+    background-color: #45a049;
 }
 
 div {
@@ -68,8 +68,8 @@ div p {
 }
 .pokemon-logo {
     display: block;
-    margin: 0 auto; /* Set margin to auto to center the image horizontally */
-    max-width: 150px; /* Adjust the width as needed */
+    margin: 0 auto;
+    max-width: 150px;
     height: auto;
     margin-bottom: 20px;
 }

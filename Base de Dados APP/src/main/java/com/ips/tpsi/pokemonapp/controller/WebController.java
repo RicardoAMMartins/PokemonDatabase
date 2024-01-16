@@ -53,11 +53,12 @@ public class WebController {
             modelAndView.addObject("newPokemon", new Pokemon()); 
             modelAndView.addObject("addedPokemon", newPokemon); 
             modelAndView.addObject("pokemonList", bc.getAllPokemonWithTypes());
-            return modelAndView;
+            return new ModelAndView("redirect:/select");
         } catch (Exception e) {
             e.printStackTrace();
             return new ModelAndView("errorPage");
         }
+
     }
 
     @GetMapping("/edit-form/{id}")
@@ -84,11 +85,12 @@ public class WebController {
             modelAndView.addObject("editedPokemon", new Pokemon()); 
             modelAndView.addObject("newEditedPokemon", editedPokemon); 
             modelAndView.addObject("pokemonList", bc.getAllPokemonWithTypes());
-            return modelAndView;
+            return new ModelAndView("redirect:/select");
         } catch (Exception e) {
             e.printStackTrace();
             return new ModelAndView("errorPage");
         }
+
     }
 
     @PostMapping("/delete/{id}")
