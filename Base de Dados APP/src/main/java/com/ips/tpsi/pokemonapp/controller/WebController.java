@@ -96,4 +96,31 @@ public class WebController {
         bc.deletePokemon(id);
         return "redirect:/select";
     }
+
+    @GetMapping("/select-deleted")
+    public ModelAndView getDeletedPokemons() {
+        List<Pokemon> deletedPokemonList = bc.getDeletedPokemonWithTypes();
+        ModelAndView mv = new ModelAndView("deletedPokemons");
+        mv.addObject("deletedPokemonList", deletedPokemonList);
+        mv.addObject("deletedPokemons", new Pokemon());
+        return mv;
+    }
+
+    @GetMapping("/reactivate/{id}")
+    public ModelAndView reactivatePokemon(@PathVariable Integer id) {
+        try {
+            bc.reactivatePokemon(id);
+            return new ModelAndView("redirect:/select-deleted");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ModelAndView("errorPage");
+        }
+    }
+
+    @GetMapping("/aboutUs")
+    public ModelAndView getAboutUs() {
+        ModelAndView mv = new ModelAndView("aboutUs");
+        return mv;
+    }
+
 }

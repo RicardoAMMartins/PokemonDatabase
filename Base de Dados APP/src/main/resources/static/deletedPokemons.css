@@ -1,0 +1,87 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+    background-color: #f5f5f5; /* Light gray background color */
+}
+
+h2 {
+    color: #333; /* Dark gray color for headings */
+    height: 100px;
+}
+
+button.show-list-btn {
+    background-color: #3498db; /* Blue color */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s; /* Smooth hover transition */
+}
+
+button.home-btn {
+    background-color: #e74c3c; /* Red color */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth hover transition */
+}
+
+button:hover {
+    opacity: 0.8; /* Slightly reduce opacity on hover for a subtle effect */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+thead {
+    background-color: #333; /* Dark gray color for table header */
+    color: white;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px; /* Increased padding for better readability */
+    text-align: left;
+}
+
+th:first-child,
+td:first-child {
+    border-left: 1px solid #ddd; /* Additional left border for the first column */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Slightly darker background color for even rows */
+}
+
+tr:hover {
+    background-color: #e0e0e0; /* Light gray background on hover */
+}
+
+button.reactivate-btn {
+    background-color: #27ae60; /* Green color */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth hover transition */
+}
+.pokemon-logo {
+    display: block;
+    margin: 0 auto;
+    max-width: 150px;
+    max-height: 120px; /* Adjust the height as needed */
+    height: auto;
+    margin-bottom: 20px;
+    text-align: center; /* Center the image within its container */
+    position: absolute;
+    left: 640px;
+    top: 30px;
+}

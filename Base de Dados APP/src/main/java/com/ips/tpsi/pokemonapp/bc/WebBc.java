@@ -115,4 +115,42 @@ public class WebBc {
         Optional<Pokemon> optionalPokemon = pokemonRepository.findById(id);
         return optionalPokemon.orElse(null);
     }
+
+    public List<Pokemon> getDeletedPokemonWithTypes() {
+        List<Pokemon> deletedPokemonList = pokemonRepository.findAll();
+
+        deletedPokemonList = deletedPokemonList.stream()
+                .filter(pokemon -> !pokemon.getIsActive())
+                .collect(Collectors.toList());
+
+        for (Pokemon deletedPokemon : deletedPokemonList) {
+            List<PokemonTypeLvl> typeLevels = pokemonTypeLvlRepository.findByPokemon(deletedPokemon);
+            if (!typeLevels.isEmpty()) {
+                TypePokemon firstType = typeLevels.get(0).getTypePokemon();
+                deletedPokemon.setFirstType(firstType != null ? firstType : null);
+
+                if (typeLevels.size() > 1) {
+                    TypePokemon secondType = typeLevels.get(1).getTypePokemon();
+                    deletedPokemon.setSecondType(secondType != null ? secondType : null);
+                } else {
+                    deletedPokemon.setSecondType(null);
+                }
+            } else {
+                deletedPokemon.setFirstType(null);
+                deletedPokemon.setSecondType(null);
+            }
+        }
+        return deletedPokemonList;
+    }
+
+    public void reactivatePokemon(Integer id) {
+        try {
+            Pokemon pokemonToReactivate = getPokemonById(id);
+            pokemonToReactivate.setIsActive(true);
+            pokemonRepository.save(pokemonToReactivate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

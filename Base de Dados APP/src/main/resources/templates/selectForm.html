@@ -1,43 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Select Form</title>
-    <link rel="stylesheet" href="style.css" />
-    <style>
-      #pokemonListTable {
-        display: none;
-      }
-    </style>
-  </head>
-  <body>
-    <h2>Select Form</h2>
+<head>
+  <meta charset="UTF-8" />
+  <title>Select Form</title>
+  <link rel="stylesheet" href="selectForm.css" />
+  <style>
+    #pokemonListTable {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<h2>Select Form</h2>
 
-    <button onclick="showPokemonList()">Show Pokémon List</button>
-    <button onclick="location.href='/add-form'">Add Pokemon</button>
+<img src="https://1000logos.net/wp-content/uploads/2017/05/Pokemon-Logo.png" alt="Pokemon Logo" class="pokemon-logo">
 
-    <table id="pokemonListTable" border="1">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Total</th>
-          <th>HP</th>
-          <th>Attack</th>
-          <th>Defense</th>
-          <th>Super Attack</th>
-          <th>Super Defense</th>
-          <th>Speed</th>
-          <th>Generation</th>
-          <th>Legendary</th>
-          <th>Type 1</th>
-          <th>Type 2</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="pokemon : ${pokemonList}" th:if="${pokemon.isActive}">
+<button class="show-list" onclick="showPokemonList()">Show Pokémon List</button>
+<button class="add-pokemon" onclick="location.href='/add-form'">Add Pokemon</button>
+<button class="deleted-pokemons" onclick="location.href='/select-deleted'">Deleted Pokemons</button>
+<button class="about-us" onclick="location.href='/aboutUs'">About Us</button>
+<input type="text" id="searchInput" placeholder="Search Pokemon by Name" oninput="searchPokemon()">
+
+
+<table id="pokemonListTable" border="1">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Total</th>
+    <th>HP</th>
+    <th>Attack</th>
+    <th>Defense</th>
+    <th>Super Attack</th>
+    <th>Super Defense</th>
+    <th>Speed</th>
+    <th>Generation</th>
+    <th>Legendary</th>
+    <th>Type 1</th>
+    <th>Type 2</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="pokemon : ${pokemonList}" th:if="${pokemon.isActive}">
           <td th:text="${pokemon.idPokemon}"></td>
           <td th:text="${pokemon.namePokemon}"></td>
           <td th:text="${pokemon.total}"></td>
@@ -55,26 +61,14 @@
           <td
             th:text="${pokemon.typeLevels != null && pokemon.typeLevels.size() > 1 && pokemon.typeLevels[1].typePokemon != null ? pokemon.typeLevels[1].typePokemon.nameType : ''}"
           ></td>
-          <td>
-            <button
-              th:onclick="'location.href=\'/edit-form/\' + ' + ${pokemon.idPokemon}"
-            >
-              Edit
-            </button>
-          </td>
-          <td>
-            <form
-              th:action="@{/delete/{id}(id=${pokemon.idPokemon})}"
-              method="post"
-            >
-              <button
-                type="submit"
-                onclick="return confirm('Do you want do delete this Pokemon?')"
-              >
-                Delete
-              </button>
-            </form>
-          </td>
+    <td>
+      <button class="edit-btn" th:onclick="'location.href=\'/edit-form/\' + ' + ${pokemon.idPokemon}">Edit</button>
+    </td>
+    <td>
+      <form th:action="@{/delete/{id}(id=${pokemon.idPokemon})}" method="post">
+        <button type="submit" class="delete-btn" onclick="return confirm('Do you want to delete this Pokemon?')">Delete</button>
+      </form>
+    </td>
         </tr>
       </tbody>
     </table>
@@ -83,6 +77,26 @@
       function showPokemonList() {
         var pokemonListTable = document.getElementById("pokemonListTable");
         pokemonListTable.style.display = "block";
+      }
+
+      function searchPokemon() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("pokemonListTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[1]; // Change 1 to the column index of the Pokemon name
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
       }
     </script>
   </body>

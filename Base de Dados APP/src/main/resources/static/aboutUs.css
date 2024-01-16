@@ -1,0 +1,46 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+}
+
+.home-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.about-us-box {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pokemon-logo {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+h3 {
+    color: #4CAF50;
+    font-size: 24px;
+}
+
+h4 {
+    color: #333;
+    font-size: 16px;
+}
+.pokemon-logo {
+    max-width: 150px; /* Adjust the width as needed */
+    height: auto;
+    margin-bottom: 20px;
+}

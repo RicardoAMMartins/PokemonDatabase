@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Other Page</title>
+    <link rel="stylesheet" href="deletedPokemons.css"/>
+</head>
+<body>
+<h2>Deleted Pokemons</h2>
+
+<button class="show-list-btn" onclick="showDeletedPokemonList()">Show Deleted Pokémon List</button>
+<button class="home-btn" onclick="location.href='/select'">Home</button>
+<img src="https://1000logos.net/wp-content/uploads/2017/05/Pokemon-Logo.png" alt="Pokemon Logo" class="pokemon-logo">
+
+
+<table id="deletedPokemonListTable" border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Total</th>
+        <th>HP</th>
+        <th>Attack</th>
+        <th>Defense</th>
+        <th>Super Attack</th>
+        <th>Super Defense</th>
+        <th>Speed</th>
+        <th>Generation</th>
+        <th>Legendary</th>
+        <th>Type 1</th>
+        <th>Type 2</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pokemon : ${deletedPokemonList}" th:if="${!pokemon.isActive}">
+        <td th:text="${pokemon.idPokemon}"></td>
+        <td th:text="${pokemon.namePokemon}"></td>
+        <td th:text="${pokemon.total}"></td>
+        <td th:text="${pokemon.hp}"></td>
+        <td th:text="${pokemon.attack}"></td>
+        <td th:text="${pokemon.defense}"></td>
+        <td th:text="${pokemon.superAttack}"></td>
+        <td th:text="${pokemon.superDefense}"></td>
+        <td th:text="${pokemon.speed}"></td>
+        <td th:text="${pokemon.generation}"></td>
+        <td th:text="${pokemon.legendary}"></td>
+        <td th:text="${pokemon.typeLevels != null && pokemon.typeLevels.size() > 0 ? pokemon.typeLevels[0].typePokemon.nameType : ''}"></td>
+        <td th:text="${pokemon.typeLevels != null && pokemon.typeLevels.size() > 1 && pokemon.typeLevels[1].typePokemon != null ? pokemon.typeLevels[1].typePokemon.nameType : ''}"></td>
+        <td>
+            <form th:action="@{'/reactivate/' + ${pokemon.idPokemon}}" method="get">
+                <button class="reactivate-btn" type="submit">Reactivate</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    function showDeletedPokemonList() {
+        var deletedPokemonListTable = document.getElementById("deletedPokemonListTable");
+        deletedPokemonListTable.style.display = "block";
+    }
+</script>
+</body>
+</html>
